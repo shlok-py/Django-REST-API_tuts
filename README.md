@@ -21,15 +21,16 @@ parsed_data = JSONParser().parse(stream)
 
 ### Deserialization
 
-StepI: Create a Serializer Object
+StepI: Create a Serializer Object <br>
 `
-serializer = Serializer_mode_name(data = parsed_data)
-`
-Step II: Validated data
+serializer = Serializer_model_name(data = parsed_data)
+`<br>
+Step II: Validated data 
+<br>
 `
 serializer.is_valid()
-
 #get valid data from
 serializer.validated_data()
-serializer.errors #gives the errors
+#gives the errors
+serializer.errors
 `
