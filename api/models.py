@@ -7,9 +7,6 @@ class Student(models.Model):
     Roll = models.IntegerField()
     city = models.CharField(max_length=100)
     
-    #create or insert the data
-    def create(self, validated_data):
-        return Student.objects.create(**validated_data)
     
     def __str__(self):
         return self.name
