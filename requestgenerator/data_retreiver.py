@@ -53,6 +53,6 @@ def delete_data(url, id):
 if __name__ == "__main__":
     url = "http://127.0.0.1:8000/studentapi/"
     get_request(url)
-    # create_insert_data(url,1, "Ansan", 1000, "KTM")
-    update_data(url, 1, "R Shlok", 3, "BR")
-    # delete_data(url,11)
+    create_insert_data(url,2, "Ansan", 1, "KTM")
+    # update_data(url, 1, "R Shlok", 3, "BR")
+    # delete_data(url,13)
