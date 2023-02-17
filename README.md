@@ -34,3 +34,5 @@ serializer.validated_data()
 #gives the errors
 serializer.errors
 `
+# ModelSerilizer
+ModelSerializer class is a shortcut method that lets to create a Serializer class with fields that corresponds to django model automatically.
