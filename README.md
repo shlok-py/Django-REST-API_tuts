@@ -36,3 +36,14 @@ serializer.errors
 `
 # ModelSerilizer
 ModelSerializer class is a shortcut method that lets to create a Serializer class with fields that corresponds to django model automatically.
+
+Create a serializers.py file
+`
+from rest_framework import serializers
+class StudentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = name_of_the_model_you_Want_to_serialize
+    fields = [name of the fields required]
+    # you can also write fields = '__all__' to select all the fields required
+    #also use exclude = [name of the fields] to exclude the field you dont want
+`
