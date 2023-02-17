@@ -22,5 +22,5 @@ urlpatterns = [
     # path("student/<int:pk>", views.student_details),
     # path("student/", views.student, name="student"),
     # path("student_create/", views.student_create, name="student_create")
-    path("studentapi/", views.student_api, name="student_api")
+    path("studentapi/", views.StudentAPI.as_view(), name="student_api")
 ]
