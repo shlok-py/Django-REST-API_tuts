@@ -12,7 +12,9 @@ def get_request(url, id = None):
     if id is not None:
         data = {"id": id}
     json_data = json.dumps(data)
-    r = requests.get(url, data = json_data)
+    headers = {'content-type': 'application/json'}
+    
+    r = requests.get(url, headers = headers, data = json_data)
     
     data = r.json()
     print(data)
@@ -24,8 +26,9 @@ def create_insert_data(url, id, name, roll, city):
         'Roll': roll,
         'city': city
     }
+    headers = {'content-type': 'application/json'}
     json_data = json.dumps(data)
-    r = requests.post(url, json_data)
+    r = requests.post(url, headers= headers,data = json_data)
     data = r.json()
     print(data)
 
@@ -37,7 +40,9 @@ def update_data(url, id, name="", roll=None, city=""):
         'city': city
     }
     json_data = json.dumps(data)
-    r = requests.put(url, json_data)
+    headers = {'content-type': 'application/json'}
+    
+    r = requests.put(url, headers = headers, data =json_data)
     data = r.json()
     print(data)
 
@@ -46,13 +51,15 @@ def delete_data(url, id):
         'id': id
     }
     json_data = json.dumps(data)
-    r = requests.delete(url, data = json_data)
+    headers = {'content-type': 'application/json'}
+    
+    r = requests.delete(url, headers = headers, data = json_data)
     data = r.json()
     print(data)
     
 if __name__ == "__main__":
     url = "http://127.0.0.1:8000/studentapi/"
     get_request(url)
-    create_insert_data(url,2, "Ansan", 1, "KTM")
-    # update_data(url, 1, "R Shlok", 3, "BR")
-    # delete_data(url,13)
+    # create_insert_data(url,2, "Anup", 8, "KTM")
+    # update_data(url, 14, "Shlok", 3, "BRT")
+    # delete_data(url,15)

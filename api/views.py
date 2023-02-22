@@ -4,6 +4,8 @@ from .models import Student
 from .serializers import StudentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django.core.serializers.json import DjangoJSONEncoder
 import io
 from django.views.decorators.csrf import csrf_exempt
@@ -97,6 +99,7 @@ from django.utils.decorators import method_decorator
 #             return HttpResponse(json_data, content_type='application/json')
 #         json_data = JSONRenderer().render(serializer.errors)
 #         return HttpResponse(json_data, content_type='application/json')
+'''
 @method_decorator(csrf_exempt, name='dispatch')
 class StudentAPI(View):
     def get(self, request, *args, **kwargs):
@@ -154,3 +157,54 @@ class StudentAPI(View):
             res = {'msg':'Data Deleted'}
             json_data = JSONRenderer().render(res)
             return HttpResponse(json_data, content_type='application/json')
+            '''
+# @api_view()
+# def hello_world(request):
+#     return Response({'msg':'Hello World'})
+
+# @api_view(['POST'])
+# def hello_world(request):
+#     if request.method == "POST":
+#         print(request.data)
+#         return Response({'msg':'Hello this is post'})
+    # return Response({'msg':'Hello World'})
+    
+# @api_view(['GET', 'POST'])
+# # @csrf_exempt
+# def hello_world(request):
+#     if request.method == "GET":
+#         return Response({'msg':'Hello World'})
+#     if request.method == "POST":
+#         print(request.data)
+#         return Response({'msg':'Hello this is post'})
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+def student_api(request):
+    if request.method == "GET":
+        id = request.data.get('id', None)
+        if id is not None:
+            stu = Student.objects.get(id = id)
+            serializer = StudentSerializer(stu)
+            return Response(serializer.data)
+        stu = Student.objects.all()
+        serializer = StudentSerializer(stu, many=True)
+        return Response(serializer.data)
+    if request.method == "POST":
+        serializer = StudentSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':'Data Created'})
+        return Response(serializer.errors)
+    if request.method == "PUT":
+        id = request.data.get('id')
+        stu = Student.objects.get(id = id)
+        serializer = StudentSerializer(stu, data = request.data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'msg':'Data Updated'})
+        return Response(serializer.errors)
+    if request.method == "DELETE":
+        id = request.data.get('id')
+        stu = Student.objects.get(id = id)
+        stu.delete()
+        return Response({'msg':'Data Deleted'})
